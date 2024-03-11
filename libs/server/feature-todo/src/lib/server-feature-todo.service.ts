@@ -1,6 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ITodo } from '@fst/shared/domain';
 import { BehaviorSubject } from 'rxjs';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ToDoEntitySchema } from '@fst/server/data-access';
 
 @Injectable()
 export class ServerFeatureTodoService {
@@ -13,12 +16,17 @@ export class ServerFeatureTodoService {
     },
   ]);
 
-  getAll(): ITodo[] {
-    return this.todos$$.value;
+  constructor(
+    @InjectRepository(ToDoEntitySchema)
+    private todoRepository: Repository<ITodo>
+  ) {}
+
+  async getAll(): Promise<ITodo[]> {
+    return await this.todoRepository.find();
   }
 
-  getOne(id: string): ITodo {
-    const todo = this.todos$$.value.find((td) => td.id === id);
+  async getOne(id: string): Promise<ITodo> {
+    const todo = await this.todoRepository.findOneBy({ id });
     if (!todo) {
       throw new NotFoundException(`Todo could not be found!`);
     }
@@ -26,14 +34,35 @@ export class ServerFeatureTodoService {
     return todo;
   }
 
-  create(todo: Pick<ITodo, 'title' | 'description'>): ITodo {
-    const current = this.todos$$.value;
-    const newTodo: ITodo = {
-        ...todo,
-        id: `todo-${Math.floor(Math.random() * 10000)}`,
-        completed: false
-    }
-    this.todos$$.next([...current, newTodo]);
+  async create(todo: Pick<ITodo, 'title' | 'description'>): Promise<ITodo> {
+    const newTodo = await this.todoRepository.save({ ...todo });
     return newTodo;
+  }
+  async upsert(data: ITodo): Promise<ITodo> {
+    await this.todoRepository.save({
+      ...data,
+    });
+
+    // re-query the database so that the updated record is returned
+    const updated = await this.todoRepository.findOneOrFail({
+      where: { id: data.id },
+    });
+    return updated;
+  }
+
+  async update(id: string, data: Partial<Omit<ITodo, 'id'>>): Promise<ITodo> {
+    await this.todoRepository.save({
+      id,
+      ...data,
+    });
+
+    // re-query the database so that the updated record is returned
+    const updated = await this.todoRepository.findOneOrFail({ where: { id } });
+    return updated;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.todoRepository.delete({ id });
+    return;
   }
 }
