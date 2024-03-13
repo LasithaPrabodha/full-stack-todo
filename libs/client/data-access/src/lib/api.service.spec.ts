@@ -92,7 +92,9 @@ describe('ApiService', () => {
       error: done.fail,
     });
     expect(httpSpy).toHaveBeenCalledTimes(1);
-    expect(httpSpy).toHaveBeenLastCalledWith(`/api/v1/todos/${todo.id}`, { ...todo });
+    expect(httpSpy).toHaveBeenLastCalledWith(`/api/v1/todos/${todo.id}`, {
+      ...todo,
+    });
   });
 
   it('should delete a single to-do item', (done) => {
