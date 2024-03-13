@@ -2,6 +2,7 @@ name: Main Branch CI
 
 env:
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 # this workflow runs only on the main branch
 on:
@@ -40,16 +41,17 @@ jobs:
     needs:
       - main
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@master
       - uses: actions/download-artifact@v3
         with:
           name: dist-and-coverage-artifacts
           path: coverage
       - name: Display structure of downloaded files
         run: ls -R
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           directory: ./coverage/coverage
+          token: ${{env.CODECOV_TOKEN}} # required
           flags: unittests # optional
           name: codecov-umbrella # optional
           fail_ci_if_error: true # optional (default = false)
