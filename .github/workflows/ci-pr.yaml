@@ -46,7 +46,7 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:
           directory: ./coverage/coverage
-          token: ${{env.CODECOV_TOKEN}} # required
+          token: ${{secrets.CODECOV_TOKEN}} # required
           flags: unittests # optional
           name: codecov-umbrella # optional
           fail_ci_if_error: true # optional (default = false)
