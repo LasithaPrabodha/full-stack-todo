@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ServerFeatureTodoModule } from '@fst/server/feature-todo';
+import { ServerFeatureHealthModule } from '@fst/server/feature-health';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
@@ -23,6 +24,7 @@ import * as Joi from 'joi';
       inject: [ConfigService],
     }),
     ServerFeatureTodoModule,
+    ServerFeatureHealthModule,
   ],
   controllers: [],
   providers: [],
