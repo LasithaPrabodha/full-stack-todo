@@ -22,15 +22,21 @@ async function bootstrap() {
     prefix: 'v1',
   });
 
+  app.enableCors({
+    origin: '*',
+  });
+
   // handle swagger
   const config = new DocumentBuilder()
     .setTitle(`Full Stack To-Do REST API`)
     .setVersion('1.0')
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/v1', app, document);
 
-  
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api/v1', app, document, {
+    jsonDocumentUrl: 'api/v1/swagger.json',
+  });
 
   const port = process.env.PORT || 3000;
   await app.listen(port);

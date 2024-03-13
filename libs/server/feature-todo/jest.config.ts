@@ -8,4 +8,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/server/feature-todo',
+  coverageReporters: ['json', 'text', 'lcov', 'clover'],
 };

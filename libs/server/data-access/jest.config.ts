@@ -8,4 +8,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/server/data-access',
+  coverageReporters: ['json', 'text', 'lcov', 'clover'],
 };

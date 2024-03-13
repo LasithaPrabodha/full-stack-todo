@@ -11,6 +11,13 @@
         "jestConfig": "apps/server-e2e/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/server-e2e/**/*.{js,ts}"]
+      }
     }
   }
 }
