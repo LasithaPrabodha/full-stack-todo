@@ -45,7 +45,7 @@ jobs:
         run: ls -R
       - uses: codecov/codecov-action@v3
         with:
-          directory: ./coverage/coverage
+          directory: ./coverage
           token: ${{secrets.CODECOV_TOKEN}} # required
           flags: unittests # optional
           name: codecov-umbrella # optional

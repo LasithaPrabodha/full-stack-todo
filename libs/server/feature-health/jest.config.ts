@@ -8,4 +8,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/server/feature-health',
+  coverageReporters: ['json', 'text', 'lcov', 'clover'],
 };
