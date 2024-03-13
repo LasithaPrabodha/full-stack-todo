@@ -46,5 +46,7 @@ spec:
           ports:
             - containerPort: 3306
           resources: {}
+
       restartPolicy: Always
+      automountServiceAccountToken: false
 status: {}

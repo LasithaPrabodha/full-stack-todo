@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pretty-format-check": "./pretty-format-check.sh"
   },
   "private": true,
   "dependencies": {
