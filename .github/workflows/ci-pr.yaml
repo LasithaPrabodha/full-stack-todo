@@ -37,16 +37,17 @@ jobs:
     name: Code Coverage
     needs: ['main']
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@master
       - uses: actions/download-artifact@v3
         with:
           name: dist-and-coverage-artifacts
           path: coverage
       - name: Display structure of downloaded files
         run: ls -R
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           directory: ./coverage
+          token: ${{env.CODECOV_TOKEN}} # required
           flags: unittests # optional
           name: codecov-umbrella # optional
           fail_ci_if_error: true # optional (default = false)
