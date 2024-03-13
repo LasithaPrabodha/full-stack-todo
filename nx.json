@@ -77,23 +77,6 @@
     "e2e": {
       "inputs": ["default", "^production"],
       "cache": true
-    },
-    "@angular-devkit/build-angular:browser": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
-    "@nx/rollup:rollup": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
-    },
-    "stylelint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.stylelintrc(.(json|yml|yaml|js))?"
-      ],
-      "cache": true
     }
   },
   "generators": {

@@ -1,1 +1,2 @@
-export * from './lib/shared-util-env';
+export * from './lib/environment';
+export * from './lib/environment.interface';
